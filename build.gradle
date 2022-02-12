@@ -1,0 +1,103 @@
+buildscript {
+    ext {
+        //spring boot 版本
+        bootVersion = '2.6.3'
+    }
+
+    //私服地址，这个地址适用于gradle自身，比如删除，下面的springboot插件就会找不到
+    repositories {
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenCentral()
+    }
+
+    //springboot gradle插件配置
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${bootVersion}")
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version "${bootVersion}"
+}
+
+allprojects {
+    //导入使用的插件
+    apply plugin: 'java'
+    //如果导入该插件，你需要指定main class，否则不能打包
+    //apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    //这个插件用于发布jar包到私服
+//    apply plugin: 'maven-publish'
+
+    //jdk编译版本
+    sourceCompatibility = 15
+    targetCompatibility = 15
+
+    //jar包的group ，version配置
+    group 'xyz.yzh'
+    version '0.0.1'
+
+    //私服地址，
+    repositories {
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenCentral()
+    }
+
+    /**
+     * 导入了springboot,spring cloud的pom文件，能够免去自己管理版本
+     * PS: 在Spring官网指导上面有另外一种配置，那种配置需要配置main class，一会说明
+     */
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-starter-parent:${bootVersion}"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:Finchley.SR2"
+        }
+    }
+
+
+    //私服发布配置
+//    publishing {
+//        publications {
+//            maven(MavenPublication) {
+//                //指定group/artifact/version信息，可以不填。默认使用项目group/name/version作为groupId/artifactId/version
+//                groupId = project.group
+//                artifactId = project.name
+//                version = project.version
+//                //如果是war包填写components.web，如果是jar包填写components.java
+//                from components.java
+//
+//                //配置上传源码
+//                artifact sourceJar {
+//                    classifier "src"
+//                }
+//
+//            }
+//        }
+//        repositories {
+//            maven {
+//                def releasesUrl = "http://你的私服ip:8081/repository/maven-releases/"
+//                def snapshotsUrl = "http://你的私服ip:8081/repository/maven-snapshots/"
+//                url = version.endsWith('SNAPSHOT') ? snapshotsUrl : releasesUrl
+//                credentials {
+//                    username = 'admin'
+//                    password = 'admin123'
+//                }
+//            }
+//        }
+//    }
+
+}
+
+//这里的配置对子项目生效
+subprojects {
+
+    dependencies {
+        testImplementation("org.springframework.boot:spring-boot-starter-test")
+        implementation("com.google.guava:guava:28.0-jre")
+    }
+}
+
+//打包源码
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+}
