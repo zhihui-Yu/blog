@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import xyz.yzh.blogweb.utils.TimeConstants;
 
 import java.time.ZonedDateTime;
 
@@ -18,15 +19,21 @@ public class SuperDomain<T extends Model> extends Model {
 
     private String createdBy;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = TimeConstants.TIME_FORMAT)
+    @JsonFormat(pattern = TimeConstants.TIME_FORMAT)
     @TableField(fill = FieldFill.INSERT)
-    private ZonedDateTime createdTime;
+    public ZonedDateTime createdTime;
 
     private String updatedBy;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    /**
+     * 不同的 json 工具 对比
+     * 1. jackson   只支持date，其他类型都要再配置，private属性不转换
+     * 2. gson      ZoneDateTime 显示多重结构， private属性显示
+     * 3. fastJson  Date 显示时间戳，private属性不显示
+     */
+    @DateTimeFormat(pattern = TimeConstants.TIME_FORMAT)
+    @JsonFormat(pattern = TimeConstants.TIME_FORMAT)
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private ZonedDateTime updatedTime;
+    public ZonedDateTime updatedTime;
 }
