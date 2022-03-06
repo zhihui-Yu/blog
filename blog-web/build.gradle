@@ -1,4 +1,11 @@
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
-//    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('org.springframework.boot:spring-boot-starter-json')
+    implementation group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.4.2'
+//    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.1'
+//    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.13.1'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.28'
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.36'
+
+//    implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.2.10'
 }

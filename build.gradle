@@ -94,6 +94,7 @@ subprojects {
     dependencies {
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         implementation("com.google.guava:guava:28.0-jre")
+        compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
     }
 }
 

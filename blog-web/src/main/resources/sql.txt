@@ -1,0 +1,31 @@
+use blog;
+
+CREATE TABLE blogs
+(
+    id           int          not null primary key,
+    name         varchar(50)  not null,
+    tags         varchar(300) null,
+    title        varchar(50)  not null,
+    view_count   int          not null default 0,
+    created_by   varchar(50)  not null,
+    created_time TIMESTAMP    not null,
+    updated_by   varchar(50)  not null,
+    updated_time TIMESTAMP    not null
+);
+
+
+CREATE TABLE users
+(
+    id           int          not null primary key,
+    name         varchar(50)  not null,
+    email        varchar(50)  not null,
+    avatar_link  varchar(300) null,
+    github_link  varchar(300) null,
+    created_by   varchar(50)  not null,
+    created_time TIMESTAMP    not null,
+    updated_by   varchar(50)  not null,
+    updated_time TIMESTAMP(6)    not null
+);
+
+INSERT INTO users(id, name, email, avatar_link, github_link, created_by, created_time, updated_by, updated_time)
+VALUES (0, "simple", "yzhsmail@163.com", null, null, "mysql", NOW(), "mysql", NOW());
