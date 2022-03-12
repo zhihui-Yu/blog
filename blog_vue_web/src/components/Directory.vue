@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-input placeholder="输入关键字进行过滤" v-model="filterText"> </el-input>
-
+    <div style="margin-top: 10%;"></div>
     <el-tree
       class="filter-tree"
       :data="data"
@@ -16,10 +16,17 @@
 <script>
 export default {
   name: 'directory',
+  props: {
+    data: Array
+  },
   watch: {
     filterText (val) {
       this.$refs.tree.filter(val)
     }
+  },
+
+  mounted () {
+    console.log(this.data)
   },
 
   methods: {
@@ -32,7 +39,7 @@ export default {
   data () {
     return {
       filterText: '',
-      data: [
+      datas: [
         {
           id: 1,
           label: '一级 1',
@@ -84,7 +91,7 @@ export default {
       ],
       defaultProps: {
         children: 'children',
-        label: 'label'
+        label: 'name'
       }
     }
   }
