@@ -1,14 +1,23 @@
 import axios from 'axios'
 
-const request = axios.create({
-  baseURL: 'api', // api 的 base_url
-  withCredentials: true, // 允许后台的cookie传递到前端
-  timeout: 100000 // 请求超时时间
+const API_HOST = 'http://localhost:80/api'
+
+// 如果要跨域的话，对axios进行一些设置
+const axiosInstance = axios.create({
+  headers: {'Content-Type': 'application/json;charset=utf-8'}, // 设置传输内容的类型和编码
+  withCredentials: true // 指定某个请求应该发送凭据
 })
 
 export function getDirectory () {
-  return request({
-    url: process.env.API_HOST + '/directory',
+  return axiosInstance({
+    url: API_HOST + '/directory',
+    method: 'get'
+  })
+}
+
+export function getBlog (id) {
+  return axiosInstance({
+    url: API_HOST + '/blog/' + id,
     method: 'get'
   })
 }

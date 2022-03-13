@@ -21,7 +21,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
         //添加自定义拦截器
         registry.addInterceptor(corsInterceptor)
             //拦截器拦截那些路径
-            .addPathPatterns("/api/**");
+            .addPathPatterns("/**");
         //不拦截的路径
         // .excludePathPatterns("");
     }

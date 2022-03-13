@@ -1,13 +1,11 @@
 package xyz.yzh.blogweb.utils;
 
 import com.alibaba.fastjson.JSON;
-import org.springframework.stereotype.Service;
 import xyz.yzh.blogweb.vo.R;
 
 /**
  * @author simple
  */
-@Service
 public class ResultUtils {
 //    private final static ObjectMapper MAPPER = new ObjectMapper(); // jackson
 //    private final static Gson gson = new GsonBuilder().setDateFormat(TimeConstants.TIME_FORMAT).create(); // gson

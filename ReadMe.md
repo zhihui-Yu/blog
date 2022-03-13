@@ -17,3 +17,8 @@
  - 使用k8s+nginx+jenkins 部署项目
 
 > 暂时处于开发过程中。 用实践自己的博客系统。
+
+- 问题一：
+  运行 npm install --save vue-markdown 后编译，
+  出现 babel-runtime/core-js/get-iterator babel-runtime/core-js/object/keys not found
+- 解决：运行 npm install --save babel-runtime，重新编译

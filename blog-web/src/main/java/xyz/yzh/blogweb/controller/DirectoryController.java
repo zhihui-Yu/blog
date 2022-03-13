@@ -12,7 +12,6 @@ import java.util.List;
  * @author simple
  */
 @RestController
-@RequestMapping("/api")
 public class DirectoryController {
 
     @GetMapping("/directory")
