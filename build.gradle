@@ -30,8 +30,8 @@ allprojects {
 //    apply plugin: 'maven-publish'
 
     //jdk编译版本
-    sourceCompatibility = 15
-    targetCompatibility = 15
+    sourceCompatibility = 16
+    targetCompatibility = 16
 
     //jar包的group ，version配置
     group 'xyz.yzh'

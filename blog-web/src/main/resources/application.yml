@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: 8888
   servlet:
     context-path: /api
   # SSL config see  https://github.com/helloworlde/SpringBootCollection/tree/master/SpringBoot-Https
