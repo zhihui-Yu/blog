@@ -4,7 +4,8 @@
       <i class="el-icon-caret-top"></i>
     </el-backtop>
     <VueMarkdown :source="body"/>
-    <div class="end"></div>
+    <div class="end">
+    </div>
   </div>
 </template>
 <script>
@@ -31,6 +32,6 @@ hr {
   height: 100vh;
   overflow-x: hidden;
   box-sizing: border-box;
-  padding: 0 5% 8% 5%;
+  padding: 0 5% 7% 5%;
 }
 </style>

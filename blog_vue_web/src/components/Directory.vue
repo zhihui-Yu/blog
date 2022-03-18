@@ -12,6 +12,9 @@
       ref="tree"
     >
     </el-tree>
+     <div class="copyright-box">
+        <a href="https://beian.miit.gov.cn/" target="_blank">备案号（闽ICP备2021018208号）</a>
+  </div>
   </div>
 </template>
 <script>
@@ -75,5 +78,18 @@ export default {
   border: none;
   border-bottom: 1px lightskyblue solid;
   border-radius: 0;
+}
+
+.copyright-box {
+  position:absolute;
+  bottom: 0;
+  background: #fff;
+  text-align: center;
+  padding: 0% 0 5% 0;
+  color: gray;
+}
+
+a {
+  color: gray;
 }
 </style>

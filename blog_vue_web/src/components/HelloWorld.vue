@@ -2,13 +2,13 @@
   <el-container>
     <el-aside>
       <div class="directory">
-        <Directory @blogContent="setBlogContent" :data="dirs"/>
+        <Directory @blogContent="setBlogContent" :data="dirs" />
       </div>
     </el-aside>
     <el-container>
       <el-main>
         <div class="markdown-body">
-          <Content v-highlight :body="msg"/>
+          <Content v-highlight :body="msg" />
         </div>
       </el-main>
     </el-container>
@@ -18,20 +18,20 @@
 <script>
 import Directory from './Directory'
 import Content from './Content'
-import {getDirectory} from '../api/api'
+import { getDirectory } from '../api/api'
 import 'github-markdown-css/github-markdown.css'
 import hljs from 'highlight.js'
 import Vue from 'vue'
 
 Vue.directive('highlight', function (el) {
   const blocks = el.querySelectorAll('pre code')
-  blocks.forEach(block => {
+  blocks.forEach((block) => {
     hljs.highlightBlock(block)
   })
 })
 
 export default {
-  components: {Directory, Content},
+  components: { Directory, Content },
   name: 'HelloWorld',
   data () {
     return {
@@ -40,7 +40,7 @@ export default {
     }
   },
   mounted () {
-    getDirectory().then(res => {
+    getDirectory().then((res) => {
       this.dirs = res.data.data
     })
   },
@@ -58,7 +58,7 @@ export default {
   display: block;
   position: absolute;
   left: 0;
-  top: 2%;
+  top: 0%;
   bottom: 0;
   width: 20%;
 }
@@ -67,8 +67,8 @@ export default {
   position: absolute;
   left: 20%;
   right: 0;
-  top: 2%;
-  bottom: 0px;
+  top: 0%;
+  bottom: 0;
   padding: 0 !important;
   overflow: hidden;
 }
