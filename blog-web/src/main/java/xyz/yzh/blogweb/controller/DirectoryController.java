@@ -1,45 +1,55 @@
 package xyz.yzh.blogweb.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import xyz.yzh.blogweb.bean.BlogCache;
+import xyz.yzh.blogweb.utils.FileUtils;
 import xyz.yzh.blogweb.utils.ResultUtils;
 
+import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 /**
  * @author simple
  */
 @RestController
 public class DirectoryController {
+    @Resource
+    BlogCache blogCache;
 
     @GetMapping("/directory")
     public String directory() {
-        System.out.println("============= directory ==================");
-        Dir dir = new Dir("1","level 1");
+        var data = blogCache.getBlogFiles().stream().map(blogFile -> {
+            var dir = new Dir(
+                blogCache.getId(blogFile.relativePath),
+                blogFile.relativePath.toLowerCase(Locale.ROOT).substring(blogFile.relativePath.lastIndexOf( FileUtils.separator))
+            );
+            dir.children.addAll(children(blogFile.subFiles));
+            return dir;
+        }).collect(Collectors.toList());
+        return ResultUtils.toJson(data);
+    }
 
-        Dir dir1 = new Dir("1","level 1");
-        dir1.children.add(new Dir("3", "level 1-1"));
-        dir1.children.add(new Dir("3", "level 1-2"));
-        dir1.children.add(new Dir("3", "level 1-3"));
-
-        Dir dir2 = new Dir("1","level 2");
-        dir2.children.add(new Dir("3", "level 2-1"));
-        dir2.children.add(new Dir("3", "level 2-2"));
-        dir2.children.add(new Dir("3", "level 2-3"));
-
-        dir.children.add(dir1);
-        dir.children.add(dir2);
-        return ResultUtils.toJson(List.of(dir));
+    public List<Dir> children(List<BlogCache.BlogFile> subFiles) {
+        return subFiles.stream().map(file -> {
+            var dir = new Dir(
+                blogCache.getId(file.relativePath),
+                file.relativePath.toLowerCase(Locale.ROOT).substring(file.relativePath.lastIndexOf("/"))
+            );
+            dir.children = children(file.subFiles);
+            return dir;
+        }).collect(Collectors.toList());
     }
 
     public static class Dir {
-        public String id;
+        public Long id;
         public String name;
         public List<Dir> children = new LinkedList<>();
 
-        public Dir(String id, String name) {
+        public Dir(Long id, String name) {
             this.id = id;
             this.name = name;
         }

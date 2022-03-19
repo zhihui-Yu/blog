@@ -8,8 +8,9 @@ import java.util.Objects;
 /**
  * @author simple
  */
-public class FileReadUtils {
-    private static final ClassLoader loader = FileReadUtils.class.getClassLoader();
+public class FileUtils {
+    private static final ClassLoader loader = FileUtils.class.getClassLoader();
+    public final static String separator = "/";
 
     public static String read(String filePath) throws IOException {
         InputStreamReader fr = new InputStreamReader(Objects.requireNonNull(loader.getResourceAsStream(filePath)));
@@ -34,8 +35,8 @@ public class FileReadUtils {
         return allLine.toString();
     }
 
-    public static void main(String[] args) throws IOException{
-        System.out.println( MarkDown2HtmlUtils.markdown2Html(FileReadUtils.read("static/锁.md")));
-        System.out.println( FileReadUtils.read("static/锁.md"));
+    public static void main(String[] args) throws IOException {
+        System.out.println(MarkDown2HtmlUtils.markdown2Html(FileUtils.read("static/锁.md")));
+        System.out.println(FileUtils.read("static/锁.md"));
     }
 }
