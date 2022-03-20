@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: host-ingress
+  namespace: default
+spec:
+  rules:
+    - host: yzh.xyz
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              serviceName: blog-service
+              servicePort: 8888
+          - path: /
+            backend:
+              serviceNmae: blog-nginx
+              servicePort: 80
