@@ -8,8 +8,3 @@ kubectl create secret docker-registry regcred \
 # 查看信息
 kubectl get secret regcred --output=yaml
 kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
-
-kubectl create secret docker-registry tx-registry \
---docker-server=ccr.ccs.tencentyun.com \
---docker-username=100022282625 \
---docker-password=Simple2021. 
