@@ -5,15 +5,15 @@ metadata:
   namespace: default
 spec:
   rules:
-    - host: yzh.xyz
-      http:
-        paths:
-          - path: /api
-            pathType: Prefix
-            backend:
-              serviceName: blog-service
-              servicePort: 8888
-          - path: /
-            backend:
-              serviceNmae: blog-nginx
-              servicePort: 80
+  - host: yzh.xyz
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          serviceName: blog-service
+          servicePort: 8888
+      - path: /
+        backend:
+          serviceName: blog-nginx
+          servicePort: 80

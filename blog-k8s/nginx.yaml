@@ -23,7 +23,7 @@ spec:	        #这是关于该Deployment的描述，可以理解为你期待该D
             - containerPort: 443
               hostPort: 443
       imagePullSecrets:
-        - name: txRepoSecret
+        - name: tx-registry
 
 ---
 apiVersion: v1
@@ -34,10 +34,12 @@ metadata:
     app: nginx
 spec:
   ports:
-    - port: 80
+    - name: http
+      port: 80
       protocol: TCP
       targetPort: 80
-    - port: 443
+    - name: https
+      port: 443
       protocol: TCP
       targetPort: 443
   selector:
