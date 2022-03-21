@@ -3,11 +3,20 @@ package xyz.yzh.blogweb.bean;
 import com.alibaba.fastjson.JSON;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import xyz.yzh.blogweb.utils.FileUtils;
 import xyz.yzh.blogweb.utils.SnowFlake;
 
 import java.io.File;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -16,14 +25,13 @@ import java.util.stream.Stream;
  */
 @Configuration
 public class BlogCache {
-    private final static String DIR = "static" + FileUtils.separator + "summary";
+    private final static String DIR = "/blog/summary";
     private final static Set<BlogFile> blogFiles = new HashSet<>();
     private final static Map<Long, String> pathMap = new HashMap<>();
     private final static Map<String, Long> reversePathMap = new HashMap<>();
 
-    @Bean
-    public BlogCache cache() {
-        return new BlogCache();
+    public static void main(String[] args) {
+        new BlogCache();
     }
 
     public BlogCache() {
@@ -31,10 +39,13 @@ public class BlogCache {
         init();
     }
 
+    @Bean
+    public BlogCache cache() {
+        return new BlogCache();
+    }
+
     private void init() {
-        // 项目根路径， 但是window下会在开头加入 '/'
-        var baseDir = Objects.requireNonNull(BlogCache.class.getClassLoader().getResource(DIR)).getPath();
-        var file = new File(baseDir);
+        var file = new File(DIR);
         initialCache(file);
     }
 
@@ -46,8 +57,6 @@ public class BlogCache {
             }
         }
         System.out.println(JSON.toJSON(blogFiles));
-        System.out.println(JSON.toJSON(DIR));
-        System.out.println(JSON.toJSON(File.separator));
     }
 
     private List<BlogFile> subFiles(File[] subFiles) {
@@ -63,10 +72,6 @@ public class BlogCache {
             }
             return blogFile;
         }).collect(Collectors.toList());
-    }
-
-    public static void main(String[] args) {
-        new BlogCache();
     }
 
     public Set<BlogFile> getBlogFiles() {
@@ -99,11 +104,7 @@ public class BlogCache {
 
         @Override
         public String toString() {
-            return "BlogFile{" +
-                "subFiles=" + subFiles +
-                ", isDirectory=" + isDirectory +
-                ", relativePath='" + relativePath + '\'' +
-                '}';
+            return "BlogFile{" + "subFiles=" + subFiles + ", isDirectory=" + isDirectory + ", relativePath='" + relativePath + '\'' + '}';
         }
     }
 }

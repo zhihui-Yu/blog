@@ -22,6 +22,40 @@ spec:	        #这是关于该Deployment的描述，可以理解为你期待该D
               hostPort: 80
             - containerPort: 443
               hostPort: 443
+          volumeMounts: #指定在容器中挂接路径
+          - name: nginx-html
+            mountPath: /usr/share/nginx/html
+          - name: nginx-config
+            mountPath: /etc/nginx/nginx.conf
+          - name: nginx-config2
+            mountPath: /etc/nginx/conf.d/default.conf
+          - name: nginx-crt
+            mountPath: /etc/nginx/nginx.crt
+          - name: nginx-key
+            mountPath: /etc/nginx/nginx.key
+      volumns: #  指定所提供的存储卷
+        - name: nginx-html
+          hostPath:
+            # 宿主机上的目录
+            path: /blog/nginx/html
+            # this field is optional
+            type: Directory # path指定的目标必需存在
+        - name: nginx-config
+          hostPath:
+            path: /blog/nginx/nginx.conf
+            type: Directory
+        - name: nginx-config2
+          hostPath:
+            path: /blog/nginx/default.conf
+            type: Directory
+        - name: nginx-crt
+          hostPath:
+            path: /blog/nginx/nginx.crt
+            type: Directory
+        - name: nginx-key
+          hostPath:
+            path: /blog/nginx/nginx.key
+            type: Directory
       imagePullSecrets:
         - name: tx-registry
 
