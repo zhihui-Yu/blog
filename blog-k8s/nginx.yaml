@@ -16,12 +16,10 @@ spec:	        #这是关于该Deployment的描述，可以理解为你期待该D
     spec:	    #期望Pod实现的功能（即在pod中部署）
       containers:	#生成container，与docker中的container是同一种
         - name: nginx	#container的名称
-          image: ccr.ccs.tencentyun.com/simple-blog/simple-nginx:v3	#使用镜像nginx:1.7.9创建container，该container默认80端口可访问
+          image: ccr.ccs.tencentyun.com/simple-blog/nginx:v1	#使用镜像nginx:1.7.9创建container，该container默认80端口可访问
           ports:
             - containerPort: 80
-              hostPort: 80
             - containerPort: 443
-              hostPort: 443
           volumeMounts: #指定在容器中挂接路径
           - name: nginx-html
             mountPath: /usr/share/nginx/html
@@ -33,7 +31,7 @@ spec:	        #这是关于该Deployment的描述，可以理解为你期待该D
             mountPath: /etc/nginx/nginx.crt
           - name: nginx-key
             mountPath: /etc/nginx/nginx.key
-      volumns: #  指定所提供的存储卷
+      volumes: #  指定所提供的存储卷
         - name: nginx-html
           hostPath:
             # 宿主机上的目录
@@ -43,19 +41,19 @@ spec:	        #这是关于该Deployment的描述，可以理解为你期待该D
         - name: nginx-config
           hostPath:
             path: /blog/nginx/nginx.conf
-            type: Directory
+            type: File
         - name: nginx-config2
           hostPath:
             path: /blog/nginx/default.conf
-            type: Directory
+            type: File
         - name: nginx-crt
           hostPath:
             path: /blog/nginx/nginx.crt
-            type: Directory
+            type: File
         - name: nginx-key
           hostPath:
             path: /blog/nginx/nginx.key
-            type: Directory
+            type: File
       imagePullSecrets:
         - name: tx-registry
 

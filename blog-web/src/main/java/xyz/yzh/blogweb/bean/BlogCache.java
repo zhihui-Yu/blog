@@ -3,11 +3,6 @@ package xyz.yzh.blogweb.bean;
 import com.alibaba.fastjson.JSON;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import xyz.yzh.blogweb.utils.FileUtils;
 import xyz.yzh.blogweb.utils.SnowFlake;
 
 import java.io.File;
@@ -46,7 +41,11 @@ public class BlogCache {
 
     private void init() {
         var file = new File(DIR);
-        initialCache(file);
+        System.out.println("file => " + file.getPath());
+        System.out.println("exists => " + file.exists());
+        if (file.exists()) {
+            initialCache(file);
+        }
     }
 
     private void initialCache(File file) {
@@ -87,8 +86,7 @@ public class BlogCache {
     }
 
     private String getPath(File file) {
-        String path = file.getPath();
-        return path.substring(path.indexOf("static")).replaceAll("\\\\", FileUtils.separator);
+        return file.getPath();
     }
 
     public static class BlogFile {
