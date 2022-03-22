@@ -1,20 +1,18 @@
 package xyz.yzh.blogweb.utils;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Objects;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author simple
  */
 public class FileUtils {
-    private static final ClassLoader loader = FileUtils.class.getClassLoader();
     public final static String separator = "/";
 
     public static String read(String filePath) throws IOException {
-        InputStreamReader fr = new InputStreamReader(Objects.requireNonNull(loader.getResourceAsStream(filePath)));
-        BufferedReader br = new BufferedReader(fr);
+        BufferedReader br = new BufferedReader(new FileReader(filePath, StandardCharsets.UTF_8));
         String strLine = "";
         StringBuilder allLine = new StringBuilder();
         while ((strLine = br.readLine()) != null) {
@@ -24,19 +22,7 @@ public class FileUtils {
         return allLine.toString();
     }
 
-    public static String readtoOneLine(String filePath) throws IOException {
-        InputStreamReader fr = new InputStreamReader(Objects.requireNonNull(loader.getResourceAsStream(filePath)));
-        BufferedReader br = new BufferedReader(fr);
-        String strLine = "";
-        StringBuilder allLine = new StringBuilder();
-        while ((strLine = br.readLine()) != null) {
-            allLine.append(strLine);
-        }
-        return allLine.toString();
-    }
-
     public static void main(String[] args) throws IOException {
-        System.out.println(MarkDown2HtmlUtils.markdown2Html(FileUtils.read("static/锁.md")));
-        System.out.println(FileUtils.read("static/锁.md"));
+        System.out.println(FileUtils.read("C:\\Users\\simple\\Desktop\\docker-compose.yml"));
     }
 }

@@ -35,7 +35,7 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: '<h1>标题一</h1>',
+      msg: '',
       dirs: []
     }
   },

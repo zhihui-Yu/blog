@@ -21,9 +21,10 @@ import java.util.stream.Stream;
 @Configuration
 public class BlogCache {
     private final static String DIR = "/blog/summary";
+    private final static List<String> fileEnd = List.of(".md", ".txt", ".yaml", ".yml");
     private final static Set<BlogFile> blogFiles = new HashSet<>();
-    private final static Map<Long, String> pathMap = new HashMap<>();
-    private final static Map<String, Long> reversePathMap = new HashMap<>();
+    private final static Map<String, String> pathMap = new HashMap<>();
+    private final static Map<String, String> reversePathMap = new HashMap<>();
 
     public static void main(String[] args) {
         new BlogCache();
@@ -32,6 +33,9 @@ public class BlogCache {
     public BlogCache() {
         System.out.println("initial blog cache, => " + this);
         init();
+        System.out.println("blog file size: " + blogFiles.size());
+//        System.out.println(JSON.toJSON(blogFiles));
+//        System.out.println(JSON.toJSON(reversePathMap));
     }
 
     @Bean
@@ -39,10 +43,12 @@ public class BlogCache {
         return new BlogCache();
     }
 
-    private void init() {
+    public void init() {
+        if (!blogFiles.isEmpty()) blogFiles.clear();
+        if (!pathMap.isEmpty()) pathMap.clear();
+        if (!reversePathMap.isEmpty()) reversePathMap.clear();
+
         var file = new File(DIR);
-        System.out.println("file => " + file.getPath());
-        System.out.println("exists => " + file.exists());
         if (file.exists()) {
             initialCache(file);
         }
@@ -52,57 +58,62 @@ public class BlogCache {
         if (file.isDirectory() && file.listFiles() != null) {
             for (var subFile : Objects.requireNonNull(file.listFiles())) {
                 File[] subFiles = subFile.listFiles();
-                blogFiles.add(new BlogFile(subFiles(subFiles), Objects.nonNull(subFiles), getPath(file)));
+                BlogFile blogFile = new BlogFile(subFiles(subFiles), Objects.nonNull(subFiles), getPath(subFile));
+                if (blogFile.isDirectory && !blogFile.subFiles.isEmpty()) {
+                    blogFiles.add(blogFile);
+                }
             }
         }
-        System.out.println(JSON.toJSON(blogFiles));
     }
 
     private List<BlogFile> subFiles(File[] subFiles) {
         if (subFiles == null || subFiles.length == 0) return List.of();
 
         return Stream.of(subFiles).map(file -> {
+            if (!file.isDirectory() && fileEnd.stream().noneMatch(x -> file.getAbsolutePath().contains(x))) {
+                return null;
+            }
             File[] files = file.listFiles();
             var blogFile = new BlogFile(subFiles(files), Objects.nonNull(files), getPath(file));
             if (!blogFile.isDirectory) {
                 long id = SnowFlake.GENERATOR.nextId();
-                pathMap.put(id, blogFile.relativePath);
-                reversePathMap.put(blogFile.relativePath, id);
+                pathMap.put(String.valueOf(id), blogFile.absolutePath);
+                reversePathMap.put(blogFile.absolutePath, String.valueOf(id));
             }
             return blogFile;
-        }).collect(Collectors.toList());
+        }).filter(Objects::nonNull).filter(f -> !(f.isDirectory && f.subFiles.isEmpty())).collect(Collectors.toList());
     }
 
     public Set<BlogFile> getBlogFiles() {
         return blogFiles;
     }
 
-    public String getPath(Long id) {
+    public String getPath(String id) {
         return pathMap.get(id);
     }
 
-    public Long getId(String path) {
+    public String getId(String path) {
         return reversePathMap.get(path);
     }
 
     private String getPath(File file) {
-        return file.getPath();
+        return file.getAbsolutePath().replaceAll("\\\\", "/");
     }
 
     public static class BlogFile {
         public List<BlogFile> subFiles;
         public Boolean isDirectory;
-        public String relativePath;
+        public String absolutePath;
 
-        public BlogFile(List<BlogFile> subFiles, Boolean isDirectory, String relativePath) {
+        public BlogFile(List<BlogFile> subFiles, Boolean isDirectory, String absolutePath) {
             this.subFiles = subFiles;
             this.isDirectory = isDirectory;
-            this.relativePath = relativePath;
+            this.absolutePath = absolutePath;
         }
 
         @Override
         public String toString() {
-            return "BlogFile{" + "subFiles=" + subFiles + ", isDirectory=" + isDirectory + ", relativePath='" + relativePath + '\'' + '}';
+            return "BlogFile{" + "subFiles=" + subFiles + ", isDirectory=" + isDirectory + ", relativePath='" + absolutePath + '\'' + '}';
         }
     }
 }

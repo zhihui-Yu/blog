@@ -7,6 +7,7 @@ import xyz.yzh.blogweb.utils.FileUtils;
 import xyz.yzh.blogweb.utils.ResultUtils;
 
 import javax.annotation.Resource;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -24,32 +25,32 @@ public class DirectoryController {
     public String directory() {
         var data = blogCache.getBlogFiles().stream().map(blogFile -> {
             var dir = new Dir(
-                blogCache.getId(blogFile.relativePath),
-                blogFile.relativePath.toLowerCase(Locale.ROOT).substring(blogFile.relativePath.lastIndexOf( FileUtils.separator))
+                blogCache.getId(blogFile.absolutePath),
+                blogFile.absolutePath.toLowerCase(Locale.ROOT).substring(blogFile.absolutePath.lastIndexOf(FileUtils.separator) + 1)
             );
             dir.children.addAll(children(blogFile.subFiles));
             return dir;
-        }).collect(Collectors.toList());
+        }).sorted(Comparator.comparing(x -> x.name)).collect(Collectors.toList());
         return ResultUtils.toJson(data);
     }
 
     public List<Dir> children(List<BlogCache.BlogFile> subFiles) {
         return subFiles.stream().map(file -> {
             var dir = new Dir(
-                blogCache.getId(file.relativePath),
-                file.relativePath.toLowerCase(Locale.ROOT).substring(file.relativePath.lastIndexOf("/"))
+                blogCache.getId(file.absolutePath),
+                file.absolutePath.toLowerCase(Locale.ROOT).substring(file.absolutePath.lastIndexOf("/") + 1)
             );
-            dir.children = children(file.subFiles);
+            dir.children.addAll(children(file.subFiles));
             return dir;
         }).collect(Collectors.toList());
     }
 
     public static class Dir {
-        public Long id;
+        public String id;
         public String name;
         public List<Dir> children = new LinkedList<>();
 
-        public Dir(Long id, String name) {
+        public Dir(String id, String name) {
             this.id = id;
             this.name = name;
         }
