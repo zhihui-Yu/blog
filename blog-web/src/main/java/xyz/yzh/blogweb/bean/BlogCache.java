@@ -3,6 +3,8 @@ package xyz.yzh.blogweb.bean;
 import com.alibaba.fastjson.JSON;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import xyz.yzh.blogweb.utils.SnowFlake;
 
 import java.io.File;
@@ -18,9 +20,9 @@ import java.util.stream.Stream;
 /**
  * @author simple
  */
-@Configuration
+@Component
 public class BlogCache {
-    private final static String DIR = "/blog/summary";
+    private final static String DIR = "C:\\Users\\simple\\IdeaProjects\\Trivia\\summary";
     private final static List<String> fileEnd = List.of(".md", ".txt", ".yaml", ".yml");
     private final static Set<BlogFile> blogFiles = new HashSet<>();
     private final static Map<String, String> pathMap = new HashMap<>();
@@ -36,11 +38,6 @@ public class BlogCache {
         System.out.println("blog file size: " + blogFiles.size());
 //        System.out.println(JSON.toJSON(blogFiles));
 //        System.out.println(JSON.toJSON(reversePathMap));
-    }
-
-    @Bean
-    public BlogCache cache() {
-        return new BlogCache();
     }
 
     public void init() {
