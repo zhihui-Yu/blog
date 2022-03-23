@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_HOST = 'http://yuzhihui.xyz/api'
+const API_HOST = 'https://yuzhihui.xyz/api'
 
 // 如果要跨域的话，对axios进行一些设置
 const axiosInstance = axios.create({
