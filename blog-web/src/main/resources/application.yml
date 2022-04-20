@@ -17,3 +17,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: "root"
     password: "123456"
+  application:
+    name: blog-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848

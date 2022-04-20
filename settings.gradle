@@ -1,2 +1,3 @@
 rootProject.name = 'blog'
 include "blog-web"
+include 'redis-service'

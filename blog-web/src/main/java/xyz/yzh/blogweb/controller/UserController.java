@@ -18,7 +18,7 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/about-me")
-    public String aboutMe() throws JsonProcessingException {
+    public String aboutMe() {
         User me = userService.findMe();
         return ResultUtils.toJson(me);
     }

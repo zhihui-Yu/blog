@@ -1,0 +1,10 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: redis-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
