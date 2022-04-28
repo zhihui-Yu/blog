@@ -1,3 +1,4 @@
 rootProject.name = 'blog'
-include "blog-web"
+include "blog-service"
 include 'redis-service'
+include 'blog-gateway'

@@ -1,0 +1,11 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: blog-gateway
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848

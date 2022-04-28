@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: blog-service
+          uri: lb://blog-service
+          predicates:
+            - Path=/blog-service/**
+          filters:
+            # (?<segment>/?.*)：匹配 /任意字符，此处/出现0次或1次。将匹配到的结果捕获到名称为segment的组中
+            # $\{segment}：将 segment所捕获到的文本置换到此处，注意，\的出现是由于避免yaml认为这是一个变量，在gateway进行解析时，会被替换为${segment}
+            - RewritePath=/blog-service/?(?<segment>.*),/api/$\{segment}
