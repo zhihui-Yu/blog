@@ -32,7 +32,7 @@ Vue.directive('highlight', function (el) {
 
 export default {
   components: { Directory, Content },
-  name: 'HelloWorld',
+  name: 'Index',
   data () {
     return {
       msg: '',

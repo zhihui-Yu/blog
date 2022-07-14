@@ -22,3 +22,11 @@
   运行 npm install --save vue-markdown 后编译，
   出现 babel-runtime/core-js/get-iterator babel-runtime/core-js/object/keys not found
 - 解决：运行 npm install --save babel-runtime，重新编译
+
+
+- todo:
+  - 功能设计:
+    - 搜索内容接口
+    - 动态获取目录
+    - 观看量显示
+    - 留言

@@ -16,20 +16,20 @@ spec:
     spec:
       containers:
         - name: blog-service
-          image: ccr.ccs.tencentyun.com/simple-blog/blog-service:v1
+          image: ccr.ccs.tencentyun.com/simple-blog/blog-service:v8
           volumeMounts: #指定在容器中挂接路径
-          - name: blog-file
-            mountPath: /blog/summary
+            - name: blog-file
+              mountPath: /blog/summary
           ports:
             - containerPort: 8888
               hostPort: 8888
       volumes: #  指定所提供的存储卷
-      - name: blog-file
-        hostPath:
-          # 宿主机上的目录
-          path: /blog/summary
-          # this field is optional
-          type: Directory # path指定的目标必需存在
+        - name: blog-file
+          hostPath:
+            # 宿主机上的目录
+            path: /blog/summary
+            # this field is optional
+            type: Directory # path指定的目标必需存在
       imagePullSecrets:
         - name: tx-registry
 

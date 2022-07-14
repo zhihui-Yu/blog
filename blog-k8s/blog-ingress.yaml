@@ -4,16 +4,15 @@ metadata:
   name: host-ingress
   namespace: default
 spec:
+  tls:
+    - hosts:
+        - yuzhihui.xyz
+      secretName: yuzhihui-secret
   rules:
-  - host: yzh.xyz
-    http:
-      paths:
-      - path: /api
-        pathType: Prefix
-        backend:
-          serviceName: blog-service
-          servicePort: 8888
-      - path: /
-        backend:
-          serviceName: blog-nginx
-          servicePort: 80
+    - host: yuzhihui.xyz
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: blog-nginx
+              servicePort: 8088
