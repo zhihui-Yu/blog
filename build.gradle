@@ -54,8 +54,8 @@ allprojects {
 //这里的配置对子项目生效
 subprojects {
     dependencies {
-        implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-discovery', version: '2021.0.1.0'
-        implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-loadbalancer', version: '3.1.1'
+//        implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-discovery', version: '2021.0.1.0'
+//        implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-loadbalancer', version: '3.1.1'
     }
 }
 
@@ -67,6 +67,6 @@ configure(subprojects.findAll { !it.name.equals('blog-gateway')}) {
         implementation("com.google.guava:guava:28.0-jre")
         compileOnly 'org.projectlombok:lombok:1.18.24'
         annotationProcessor 'org.projectlombok:lombok:1.18.24'
-        implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+//        implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     }
 }

@@ -1,6 +1,6 @@
 dependencies {
-    implementation group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.4.2'
-    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.28'
+//    implementation group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.4.2'
+//    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.28'
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.36'
     implementation group: 'com.vladsch.flexmark', name: 'flexmark', version: '0.64.0'
     implementation group: 'com.vladsch.flexmark', name: 'flexmark-util', version: '0.64.0'

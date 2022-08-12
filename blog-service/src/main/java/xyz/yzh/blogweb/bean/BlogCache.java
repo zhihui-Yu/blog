@@ -1,10 +1,6 @@
 package xyz.yzh.blogweb.bean;
 
-import com.alibaba.fastjson.JSON;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import xyz.yzh.blogweb.utils.SnowFlake;
 
 import java.io.File;
@@ -28,16 +24,10 @@ public class BlogCache {
     private final static Map<String, String> pathMap = new HashMap<>();
     private final static Map<String, String> reversePathMap = new HashMap<>();
 
-    public static void main(String[] args) {
-        new BlogCache();
-    }
-
     public BlogCache() {
         System.out.println("initial blog cache, => " + this);
         init();
         System.out.println("blog file size: " + blogFiles.size());
-//        System.out.println(JSON.toJSON(blogFiles));
-//        System.out.println(JSON.toJSON(reversePathMap));
     }
 
     public void init() {

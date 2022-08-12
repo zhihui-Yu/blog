@@ -1,7 +1,6 @@
 package xyz.yzh.blogweb.web.fallback;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import xyz.yzh.blogweb.web.RedisService;
 
 import java.util.Map;
@@ -10,7 +9,7 @@ import java.util.Map;
  * @author simple
  */
 @Slf4j
-@Component
+//@Component
 public class RedisServiceFallback implements RedisService {
     @Override
     public void putKey(Map<String, String> map) {
