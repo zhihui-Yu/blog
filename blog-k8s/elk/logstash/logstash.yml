@@ -1,0 +1,7 @@
+http.host: "0.0.0.0"
+xpack.monitoring.elasticsearch.hosts: [ "http://my-es:9200" ]
+xpack.monitoring.elasticsearch.username: elastic
+xpack.monitoring.elasticsearch.password: changeme
+#path.config: /data/elk/logstash/conf.d/*.conf
+path.config: /data/docker/logstash/conf.d/*.conf
+path.logs: /var/log/logstash
