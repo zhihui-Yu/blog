@@ -1,0 +1,6 @@
+spring:
+  data:
+    mongodb:
+      host: 192.168.155.128
+      uri: mongodb://192.168.155.128:27017/blog-admin
+      database: blog-admin

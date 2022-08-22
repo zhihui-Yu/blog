@@ -1,0 +1,13 @@
+server:
+  port: 8888
+  
+spring:
+  application:
+    name: blog-admin
+  profiles:
+    active: dev
+  data:
+    mongodb:
+      host: 192.168.155.128
+      uri: mongodb://192.168.155.128:27017/blog-admin
+      database: blog-admin
