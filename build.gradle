@@ -1,7 +1,8 @@
 buildscript {
     ext {
         //spring boot 版本
-        bootVersion = '2.6.3'
+        bootVersion = '2.7.3'
+        cloudVersion = '2021.0.3'
     }
 
     //私服地址，这个地址适用于gradle自身，比如删除，下面的springboot插件就会找不到
@@ -45,7 +46,7 @@ allprojects {
     dependencyManagement {
         imports {
             mavenBom "org.springframework.boot:spring-boot-starter-parent:${bootVersion}"
-            mavenBom "org.springframework.cloud:spring-cloud-dependencies:2021.0.1"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${cloudVersion}"
         }
     }
 }
@@ -56,6 +57,7 @@ subprojects {
     dependencies {
 //        implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-discovery', version: '2021.0.1.0'
 //        implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-loadbalancer', version: '3.1.1'
+        implementation 'io.springfox:springfox-boot-starter:3.0.0'
     }
 }
 

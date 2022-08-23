@@ -1,5 +1,6 @@
 package xyz.yzh.admin.controller;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,7 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
+    @ApiOperation(value = "create a menu")
     @PostMapping("/")
     public void createMenu(@RequestBody Menu menu) {
         menuService.create(menu);

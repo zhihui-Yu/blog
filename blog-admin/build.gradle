@@ -12,10 +12,26 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    implementation  'com.baomidou:mybatis-plus-boot-starter:3.4.2'
-    implementation  'mysql:mysql-connector-java:8.0.28'
-    implementation  'org.springframework.boot:spring-boot-starter-data-mongodb'
-    implementation  'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+    implementation 'com.baomidou:mybatis-plus-boot-starter:3.4.2'
+    implementation 'mysql:mysql-connector-java:8.0.28'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation('org.springframework.boot:spring-boot-starter-data-elasticsearch')
+    // 因为我安装的是es 7.7.1，所以把依赖换掉，捯饬了两个小时 -_-||， 最后还是因为es版本和springboot版本不对应 有许多问题，还是按文档下了 7.17.4，就没问题了
+//    implementation('org.springframework.boot:spring-boot-starter-data-elasticsearch') {
+//        exclude group: 'co.elastic.clients' // elasticsearch-java
+//    }
+//    implementation('org.elasticsearch.client:elasticsearch-rest-high-level-client:7.7.1') {
+//        force true
+//    }
+//    implementation('org.elasticsearch.client:elasticsearch-rest-client:7.7.1') {
+//        force true
+//    }
+//    implementation('org.elasticsearch:elasticsearch:7.7.1') {
+//        force true
+//    }
+    implementation 'jakarta.json:jakarta.json-api:2.1.0'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.13.3'
+
 }
 
 test {
