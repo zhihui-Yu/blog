@@ -11,7 +11,10 @@ server:
 #    key-alias: simple
 #    enabled: true
 
-#spring:
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 #  datasource:
 #    url: jdbc:mysql://101.43.38.61:30589/blog?characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
 #    driver-class-name: com.mysql.cj.jdbc.Driver
