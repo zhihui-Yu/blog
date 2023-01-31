@@ -29,8 +29,14 @@ public class RestClientController {
     public String getReviewer() {
         var now = ZonedDateTime.now(ZoneId.of("Asia/Shanghai"));
         var res = restTemplate.getForEntity("https://timor.tech/api/holiday/year/" + now.getYear(), Res.class).getBody();
+        // if have comp holiday, should add to it.
+        putAnotherHolidays(res.holiday);
         putValues(res.holiday, now);
-        return JSON.toJSONString(dateHolidays);
+        return JSON.toJSONString(dateReviewer);
+    }
+
+    private void putAnotherHolidays(Map<String, Res.Holiday> holiday) {
+        holiday.put("01-20", new Res.Holiday(Boolean.TRUE));
     }
 
     private void putValues(Map<String, Res.Holiday> holidayMap, ZonedDateTime now) {
@@ -94,6 +100,14 @@ public class RestClientController {
             public Boolean holiday = Boolean.FALSE;
             public String name;
             public String date;
+
+            public Holiday() {
+
+            }
+
+            public Holiday(Boolean holiday) {
+                this.holiday = holiday;
+            }
         }
     }
 }
