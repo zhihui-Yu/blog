@@ -1,5 +1,8 @@
 <template>
-  <el-container>
+
+    <Main/>
+
+  <!-- <el-container>
     <el-aside>
       <div class="directory">
         <Directory @blogContent="setBlogContent" :data="dirs" />
@@ -12,13 +15,13 @@
         </div>
       </el-main>
     </el-container>
-  </el-container>
+  </el-container> -->
 </template>
 
 <script>
 import Directory from './Directory'
+import Main from './Main.vue'
 import Content from './Content'
-import { getDirectory } from '../api/api'
 import 'github-markdown-css/github-markdown.css'
 import hljs from 'highlight.js'
 import Vue from 'vue'
@@ -31,7 +34,7 @@ Vue.directive('highlight', function (el) {
 })
 
 export default {
-  components: { Directory, Content },
+  components: { Directory, Content, Main },
   name: 'Index',
   data () {
     return {
@@ -40,14 +43,14 @@ export default {
     }
   },
   mounted () {
-    getDirectory().then((res) => {
-      this.dirs = res.data.data
-    })
+    // getDirectory().then((res) => {
+    //   this.dirs = res.data.data
+    // })
   },
   methods: {
-    setBlogContent (content) {
-      this.msg = content
-    }
+    // setBlogContent (content) {
+    //   this.msg = content
+    // }
   }
 }
 </script>

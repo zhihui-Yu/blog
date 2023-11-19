@@ -3,14 +3,8 @@
     <div>
       <el-input class="filter-input" placeholder="输入关键字进行过滤" v-model="filterText"></el-input>
       <div style="margin-top: 10%;"></div>
-      <el-tree
-        class="filter-tree"
-        :data="data"
-        :props="defaultProps"
-        :filter-node-method="filterNode"
-        @node-click="nodeClick"
-        ref="tree"
-      >
+      <el-tree class="filter-tree" :data="data" :props="defaultProps" :filter-node-method="filterNode"
+        @node-click="nodeClick" ref="tree">
       </el-tree>
     </div>
     <div class="copyright-box">
@@ -19,8 +13,7 @@
   </div>
 </template>
 <script>
-import {getBlog} from '../api/api'
-
+/* eslint-disable */
 export default {
   name: 'directory',
   props: {
@@ -72,7 +65,7 @@ export default {
 </script>
 
 <style>
-.filter-input > input {
+.filter-input>input {
   border: none;
   border-bottom: 1px lightskyblue solid;
   border-radius: 0;
